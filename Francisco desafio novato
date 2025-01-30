@@ -1,0 +1,242 @@
+#include <stdio.h>
+#include <string.h>
+
+// Definição da estrutura da carta
+struct Carta {
+    char codigo[4]; // Código da carta (ex: A01)
+    char estado[3]; // Sigla do estado (ex: SP) - Aumentado para acomodar 2 letras + '\0'
+    char nome[50]; // Nome da cidade
+    int populacao; // População da cidade
+    float area; // Área da cidade em km²
+    float pib; // PIB da cidade em reais
+    int pontosTuristicos; // Número de pontos turísticos
+};
+
+// Função para cadastrar uma carta
+void cadastrarCarta(struct Carta *carta) {
+    printf("Digite o código da carta (ex: A01): ");
+    scanf("%s", carta->codigo);
+
+    // Validação do código da carta
+    if (strlen(carta->codigo) != 3 || carta->codigo[0] < 'A' || carta->codigo[0] > 'H' || carta->codigo[1] < '0' || carta->codigo[1] > '4') {
+        printf("Código de carta inválido!\n");
+        // Limpa o buffer do teclado para evitar erros em futuras leituras
+        while (getchar() != '\n');
+        return; // Sai da função sem cadastrar a carta
+    }
+
+    printf("Digite a sigla do estado (ex: SP): ");
+    scanf("%s", carta->estado);
+
+    // Validação da sigla do estado
+    if (strlen(carta->estado) != 2) {
+        printf("Sigla de estado inválida!\n");
+        while (getchar() != '\n');
+        return;
+    }
+
+    printf("Digite o nome da cidade: ");
+    scanf(" %[^\n]s", carta->nome); // Lê o nome da cidade com espaços
+
+    printf("Digite a população: ");
+    scanf("%d", &carta->populacao);
+
+    printf("Digite a área em km²: ");
+    scanf("%f", &carta->area);
+
+    printf("Digite o PIB em reais: ");
+    scanf("%f", &carta->pib);
+
+    printf("Digite o número de pontos turísticos: ");
+    scanf("%d", &carta->pontosTuristicos);
+
+    printf("Carta cadastrada com sucesso!\n");
+}
+
+// Função para exibir os dados de uma carta
+void exibirCarta(struct Carta carta) {
+    printf("Código: %s\n", carta.codigo);
+    printf("Estado: %s\n", carta.estado);
+    printf("Cidade: %s\n", carta.nome);
+    printf("População: %d\n", carta.populacao);
+    printf("Área: %.2f km²\n", carta.area);
+    printf("PIB: R$ %.2f\n", carta.pib);
+    printf("Pontos Turísticos: %d\n", carta.pontosTuristicos);
+    printf("\n");
+}
+
+int main() {
+    struct Carta cartas[100]; // Array para armazenar até 100 cartas
+    int numCartas = 0; // Variável para controlar o número de cartas cadastradas
+
+    int opcao;
+    do {
+        printf("Menu:\n");
+        printf("1 - Cadastrar carta\n");
+        printf("2 - Exibir cartas\n");
+        printf("0 - Sair\n");
+        printf("Digite a opção desejada: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                cadastrarCarta(&cartas[numCartas]);
+                // Verifica se a carta foi cadastrada com sucesso antes de incrementar o número de cartas
+                if (strlen(cartas[numCartas].codigo) == 3 && strlen(cartas[numCartas].estado) == 2) {
+                    numCartas++;
+                }
+                break;
+            case 2:
+                if (numCartas == 0) {
+                    printf("Nenhuma carta cadastrada!\n");
+                } else {
+                    for (int i = 0; i < numCartas; i++) {
+                        exibirCarta(cartas[i]);
+                    }
+                }
+                break;
+            case 0:
+                printf("Saindo do programa...\n");
+                break;
+            default:
+                printf("Opção inválida!\n");
+        }
+    } while (opcao != 0);
+
+    return 0;
+}
+
+Código completo do sistema básico do Super Trunfo "Países" em C, com explicações detalhadas
+C
+
+#include <stdio.h>
+#include <string.h>
+
+// Definição da estrutura da carta
+struct Carta {
+    char codigo[4]; // Código da carta (ex: A01)
+    char estado[3]; // Sigla do estado (ex: SP) - Aumentado para acomodar 2 letras + '\0'
+    char nome[50]; // Nome da cidade
+    int populacao; // População da cidade
+    float area; // Área da cidade em km²
+    float pib; // PIB da cidade em reais
+    int pontosTuristicos; // Número de pontos turísticos
+};
+
+// Função para cadastrar uma carta
+void cadastrarCarta(struct Carta *carta) {
+    printf("Digite o código da carta (ex: A01): ");
+    scanf("%s", carta->codigo);
+
+    // Validação do código da carta
+    if (strlen(carta->codigo) != 3 || carta->codigo[0] < 'A' || carta->codigo[0] > 'H' || carta->codigo[1] < '0' || carta->codigo[1] > '4') {
+        printf("Código de carta inválido!\n");
+        // Limpa o buffer do teclado para evitar erros em futuras leituras
+        while (getchar() != '\n');
+        return; // Sai da função sem cadastrar a carta
+    }
+
+    printf("Digite a sigla do estado (ex: SP): ");
+    scanf("%s", carta->estado);
+
+    // Validação da sigla do estado
+    if (strlen(carta->estado) != 2) {
+        printf("Sigla de estado inválida!\n");
+        while (getchar() != '\n');
+        return;
+    }
+
+    printf("Digite o nome da cidade: ");
+    scanf(" %[^\n]s", carta->nome); // Lê o nome da cidade com espaços
+
+    printf("Digite a população: ");
+    scanf("%d", &carta->populacao);
+
+    printf("Digite a área em km²: ");
+    scanf("%f", &carta->area);
+
+    printf("Digite o PIB em reais: ");
+    scanf("%f", &carta->pib);
+
+    printf("Digite o número de pontos turísticos: ");
+    scanf("%d", &carta->pontosTuristicos);
+
+    printf("Carta cadastrada com sucesso!\n");
+}
+
+// Função para exibir os dados de uma carta
+void exibirCarta(struct Carta carta) {
+    printf("Código: %s\n", carta.codigo);
+    printf("Estado: %s\n", carta.estado);
+    printf("Cidade: %s\n", carta.nome);
+    printf("População: %d\n", carta.populacao);
+    printf("Área: %.2f km²\n", carta.area);
+    printf("PIB: R$ %.2f\n", carta.pib);
+    printf("Pontos Turísticos: %d\n", carta.pontosTuristicos);
+    printf("\n");
+}
+
+int main() {
+    struct Carta cartas[100]; // Array para armazenar até 100 cartas
+    int numCartas = 0; // Variável para controlar o número de cartas cadastradas
+
+    int opcao;
+    do {
+        printf("Menu:\n");
+        printf("1 - Cadastrar carta\n");
+        printf("2 - Exibir cartas\n");
+        printf("0 - Sair\n");
+        printf("Digite a opção desejada: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                cadastrarCarta(&cartas[numCartas]);
+                // Verifica se a carta foi cadastrada com sucesso antes de incrementar o número de cartas
+                if (strlen(cartas[numCartas].codigo) == 3 && strlen(cartas[numCartas].estado) == 2) {
+                    numCartas++;
+                }
+                break;
+            case 2:
+                if (numCartas == 0) {
+                    printf("Nenhuma carta cadastrada!\n");
+                } else {
+                    for (int i = 0; i < numCartas; i++) {
+                        exibirCarta(cartas[i]);
+                    }
+                }
+                break;
+            case 0:
+                printf("Saindo do programa...\n");
+                break;
+            default:
+                printf("Opção inválida!\n");
+        }
+    } while (opcao != 0);
+
+    return 0;
+}
+Explicação do código
+Inclusão de bibliotecas:
+
+stdio.h: Contém funções de entrada e saída como printf e scanf.
+string.h: Contém funções para manipular strings como strlen.
+Definição da estrutura Carta:
+
+Cria um modelo para as cartas, contendo as informações de cada cidade.
+Função cadastrarCarta:
+
+Solicita ao usuário os dados da cidade e os armazena na struct Carta.
+Validação de dados: Verifica se o código da carta e a sigla do estado estão no formato correto. Se não estiverem, informa o erro e impede o cadastro da carta.
+Limpeza do buffer do teclado: Após a leitura de dados com scanf, o buffer do teclado pode conter caracteres extras (como o '\n' deixado pela tecla Enter). A função while (getchar() != '\n'); limpa o buffer para evitar problemas em futuras leituras.
+Função exibirCarta:
+
+Imprime na tela os dados da carta de forma formatada.
+Função main:
+
+Declara um array de structs Carta para armazenar as cartas cadastradas.
+Cria um menu interativo para o usuário escolher entre cadastrar, exibir ou sair do programa.
+Tratamento de erros:
+Verifica se o usuário digitou uma opção de menu válida.
+Verifica se há cartas cadastradas antes de exibi-las.
+O loop do...while permite que o usuário continue interagindo com o menu até escolher a opção de saída.
